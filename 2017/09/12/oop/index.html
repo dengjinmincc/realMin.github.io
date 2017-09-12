@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | ~.~的博客</title>
+  <title>面向对象的程序设计 | ~.~的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="~.~的博客">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="首先列出一系列在面向对象程序设计（OOP）中最常用到的概念：  对象、方法、属性 类 封装 继承 多态  现在，让我们来一一进行阐述。 对象所谓对象，实质上是指“事物”在程序设计语言中的表现形式，其“事物”既可以指客观存在的东西，也可以指一些抽象的概念。比如说，对车这种常见对象来说，它有某些明确的特征（它有四个轮胎，一个引擎等），它能执行某些动作（它能跑等）。在OOP中，将这些特征称之为属性，将动">
+<meta name="keywords" content="oop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象的程序设计">
+<meta property="og:url" content="http://yoursite.com/2017/09/12/oop/index.html">
 <meta property="og:site_name" content="~.~的博客">
+<meta property="og:description" content="首先列出一系列在面向对象程序设计（OOP）中最常用到的概念：  对象、方法、属性 类 封装 继承 多态  现在，让我们来一一进行阐述。 对象所谓对象，实质上是指“事物”在程序设计语言中的表现形式，其“事物”既可以指客观存在的东西，也可以指一些抽象的概念。比如说，对车这种常见对象来说，它有某些明确的特征（它有四个轮胎，一个引擎等），它能执行某些动作（它能跑等）。在OOP中，将这些特征称之为属性，将动">
+<meta property="og:updated_time" content="2017-09-12T02:30:27.113Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="~.~的博客">
+<meta name="twitter:title" content="面向对象的程序设计">
+<meta name="twitter:description" content="首先列出一系列在面向对象程序设计（OOP）中最常用到的概念：  对象、方法、属性 类 封装 继承 多态  现在，让我们来一一进行阐述。 对象所谓对象，实质上是指“事物”在程序设计语言中的表现形式，其“事物”既可以指客观存在的东西，也可以指一些抽象的概念。比如说，对车这种常见对象来说，它有某些明确的特征（它有四个轮胎，一个引擎等），它能执行某些动作（它能跑等）。在OOP中，将这些特征称之为属性，将动">
   
     <link rel="alternative" href="/atom.xml" title="~.~的博客" type="application/atom+xml">
   
@@ -153,36 +158,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-oop" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/12/oop/" class="archive-article-date">
-  	<time datetime="2017-09-12T02:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/12/oop/">面向对象的程序设计</a>
+    <h1 class="article-title" itemprop="name">
+      面向对象的程序设计
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/12/oop/" class="archive-article-date">
+  	<time datetime="2017-09-12T02:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先列出一系列在面向对象程序设计（OOP）中最常用到的概念：</p>
+<ul>
+<li>对象、方法、属性</li>
+<li>类</li>
+<li>封装</li>
+<li>继承</li>
+<li>多态</li>
+</ul>
+<p>现在，让我们来一一进行阐述。</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>所谓对象，实质上是指“事物”在程序设计语言中的表现形式，其“事物”既可以指客观存在的东西，也可以指一些抽象的概念。比如说，对车这种常见对象来说，它有某些明确的特征（它有四个轮胎，一个引擎等），它能执行某些动作（它能跑等）。在OOP中，将这些特征称之为属性，将动作称之为方法。</p>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>通常我们将相似对象所拥有的共同特征抽象为一个类，以增加代码的复用。比如说，猫和狗都拥有四条腿，都具有在陆地上快速移动的能力，那么我们就可以将它们抽象为一个动物类，包含相同的属性和方法。同时， “对象”也被称为“实例”，我们也可以说猫是动物类的一个实例，并且我们可以基于类创建很多个对象，因此个人感觉类其实就是一种模版，通过类可以创建任意多个相同属性和方法的对象。</p>
+<p>但由于ECMAScript中没有“类”这个概念，因此对象这个概念也与传统的OO语言有所不同。ECMA-262将对象定义为：“无序属性的集合，其属性可以包含基本值、对象和方法。”由此也可以说对象是一组没有特定顺序的值。</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>封装就是把对象抽象成类，是面向对象的特征之一。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>通过继承，我们可以实现对代码的复用。比如说，我们有一个Person类，包含吃饭、说话、睡觉等属性和方法。那现在我们需要一个Programmer，当然我们也可以创建一个Programmer类，然后在里面实现吃饭、说话等，但我们还可以让Programmer继承自Person，然后在Programmer里完成其特定的功能就好（比如编写代码），这样就减少了代码的冗余，优雅的实现了对代码的复用。我们将这种方式称之为继承。</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>多态，按照字面意思来讲就是“多种状态”。在面向对象的语言中来说，也就是“接口的多种不同的实现方式”。比如在之前的例子中，Person类和Programmer类都实现了talk方法，现在有一个对象Max，在不知道它属于Person类还是Programmer类的情况下，我们依然可以调用talk方法，并且不必担心这会影响代码的正常工作。类似这种不同对象调用相同方法来实现各自行为的能力，我们称之为多态。</p>
+<p>在此过程中肯定有表达有误的时候，欢迎指证~</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -194,19 +213,96 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/09/12/oop/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
+
   
 
-    
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -229,8 +325,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
