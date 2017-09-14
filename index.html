@@ -155,6 +155,140 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-this" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/14/this/">JavaScript中的this用法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/14/this/" class="archive-article-date">
+  	<time datetime="2017-09-14T02:31:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>this关键字是JavaScript中最复杂的机制之一，它被自动定义在所有函数的作用域中。</p>
+<h2 id="什么是this"><a href="#什么是this" class="headerlink" title="什么是this"></a>什么是this</h2><p>this是JavaScript的一个关键字，它会根据函数被调用的位置、函数调用的方式自动生成一个内部对象，并且只能在内部使用。</p>
+<p>随着函数使用的场合不同，this的值也会随着变化，但只要分析出函数真正的调用位置，便也明确了this的指向。</p>
+<h2 id="this用法的四种情况"><a href="#this用法的四种情况" class="headerlink" title="this用法的四种情况"></a>this用法的四种情况</h2><h3 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h3><p>默认绑定应该是函数调用中最为常见的一种用法，它属于全局调用。</p>
+<pre><code>function foo(){
+    console.log(this.x); 
+}
+
+var x = 1; 
+
+foo(); //1
+</code></pre><p>在这个例子中，我们最先应该明确的是在全局作用域中添加的变量是全局对象中的一个同名属性。然后可以看到，foo()是在全局作用域中被调用的，因此this指向window，因此this.x也就是window.x。</p>
+<p>但在严格模式中，全局对象不能用于默认绑定，即this不会绑定到全局对象，而是绑定到undefined。</p>
+<pre><code>function foo(){
+    &apos;use strict&apos;; 
+
+    console.log(this.x);
+}
+
+var x = 1; 
+
+foo(); //ReferenceError: x is not defined
+</code></pre><h3 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h3><p>函数作为某个对象的方法被调用，此时的this会指向“包含”它或“拥有”它的对象。</p>
+<pre><code>function foo(){
+    console.log(this.x); 
+}
+
+var obj = {
+    x: 1, 
+    foo: foo
+}
+
+obj.foo(); //1
+</code></pre><h3 id="强制绑定"><a href="#强制绑定" class="headerlink" title="强制绑定"></a>强制绑定</h3><p>有的时候，我们需要强制将this绑定到某个对象上，这时我们需要用到apply(..)或者calll(..)方法;</p>
+<pre><code>function foo(){
+    console.log(this.x); 
+}
+
+obj.x = 1;
+
+foo.call(obj); //1
+</code></pre><p>在这个例子中，call(..)方法第一个参数要求传入一个对象，并将被调用函数中的this强制绑定到所传入对象中去。</p>
+<p>apply(..)和call(..)非常相似，其不同之处在于提供参数的方式不同，它们起到的作用是差不多的。</p>
+<p>如果在apply(..)或者call(..)中传入一个基本类型的值来当做this的绑定对象，那么这个基本类型的值会被转换成它相应的对象形式。</p>
+<h3 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h3><p>在传统的oo语言中，构造函数是类中的一个特殊方法，它被用来初始化一个类。通常的形式为：</p>
+<pre><code>student = new Student(); 
+</code></pre><p>在JS中，也存在new操作符。但由于没有“类”这个概念，所以被new操作符调用的函数，不会实例化某个类，它们只是被调用的普通函数而已。</p>
+<p>使用构造函数，会生成一个新的对象，this将指向这个新对象。</p>
+<pre><code>var x = 2; 
+
+function Foo(){
+    this.x = 1; 
+}
+
+var foo = new Foo(); 
+
+console.log(foo.x) // 1
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">this</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/14/this/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-oop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -506,6 +640,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">this</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: JavaScript | ~.~的博客</title>
+  <title>JavaScript中的this用法 | ~.~的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="~.~的博客">
-<meta property="og:url" content="http://yoursite.com/tags/JavaScript/index.html">
+  <meta name="description" content="this关键字是JavaScript中最复杂的机制之一，它被自动定义在所有函数的作用域中。 什么是thisthis是JavaScript的一个关键字，它会根据函数被调用的位置、函数调用的方式自动生成一个内部对象，并且只能在内部使用。 随着函数使用的场合不同，this的值也会随着变化，但只要分析出函数真正的调用位置，便也明确了this的指向。 this用法的四种情况默认绑定默认绑定应该是函数调用中最">
+<meta name="keywords" content="JavaScript,this">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中的this用法">
+<meta property="og:url" content="http://yoursite.com/2017/09/14/this/index.html">
 <meta property="og:site_name" content="~.~的博客">
+<meta property="og:description" content="this关键字是JavaScript中最复杂的机制之一，它被自动定义在所有函数的作用域中。 什么是thisthis是JavaScript的一个关键字，它会根据函数被调用的位置、函数调用的方式自动生成一个内部对象，并且只能在内部使用。 随着函数使用的场合不同，this的值也会随着变化，但只要分析出函数真正的调用位置，便也明确了this的指向。 this用法的四种情况默认绑定默认绑定应该是函数调用中最">
+<meta property="og:updated_time" content="2017-09-14T07:14:59.293Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="~.~的博客">
+<meta name="twitter:title" content="JavaScript中的this用法">
+<meta name="twitter:description" content="this关键字是JavaScript中最复杂的机制之一，它被自动定义在所有函数的作用域中。 什么是thisthis是JavaScript的一个关键字，它会根据函数被调用的位置、函数调用的方式自动生成一个内部对象，并且只能在内部使用。 随着函数使用的场合不同，this的值也会随着变化，但只要分析出函数真正的调用位置，便也明确了this的指向。 this用法的四种情况默认绑定默认绑定应该是函数调用中最">
   
     <link rel="alternative" href="/atom.xml" title="~.~的博客" type="application/atom+xml">
   
@@ -153,36 +158,91 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-this" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/14/this/" class="archive-article-date">
-  	<time datetime="2017-09-14T02:31:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/14/this/">JavaScript中的this用法</a>
+    <h1 class="article-title" itemprop="name">
+      JavaScript中的this用法
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/14/this/" class="archive-article-date">
+  	<time datetime="2017-09-14T02:31:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>this关键字是JavaScript中最复杂的机制之一，它被自动定义在所有函数的作用域中。</p>
+<h2 id="什么是this"><a href="#什么是this" class="headerlink" title="什么是this"></a>什么是this</h2><p>this是JavaScript的一个关键字，它会根据函数被调用的位置、函数调用的方式自动生成一个内部对象，并且只能在内部使用。</p>
+<p>随着函数使用的场合不同，this的值也会随着变化，但只要分析出函数真正的调用位置，便也明确了this的指向。</p>
+<h2 id="this用法的四种情况"><a href="#this用法的四种情况" class="headerlink" title="this用法的四种情况"></a>this用法的四种情况</h2><h3 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h3><p>默认绑定应该是函数调用中最为常见的一种用法，它属于全局调用。</p>
+<pre><code>function foo(){
+    console.log(this.x); 
+}
+
+var x = 1; 
+
+foo(); //1
+</code></pre><p>在这个例子中，我们最先应该明确的是在全局作用域中添加的变量是全局对象中的一个同名属性。然后可以看到，foo()是在全局作用域中被调用的，因此this指向window，因此this.x也就是window.x。</p>
+<p>但在严格模式中，全局对象不能用于默认绑定，即this不会绑定到全局对象，而是绑定到undefined。</p>
+<pre><code>function foo(){
+    &apos;use strict&apos;; 
+
+    console.log(this.x);
+}
+
+var x = 1; 
+
+foo(); //ReferenceError: x is not defined
+</code></pre><h3 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h3><p>函数作为某个对象的方法被调用，此时的this会指向“包含”它或“拥有”它的对象。</p>
+<pre><code>function foo(){
+    console.log(this.x); 
+}
+
+var obj = {
+    x: 1, 
+    foo: foo
+}
+
+obj.foo(); //1
+</code></pre><h3 id="强制绑定"><a href="#强制绑定" class="headerlink" title="强制绑定"></a>强制绑定</h3><p>有的时候，我们需要强制将this绑定到某个对象上，这时我们需要用到apply(..)或者calll(..)方法;</p>
+<pre><code>function foo(){
+    console.log(this.x); 
+}
+
+obj.x = 1;
+
+foo.call(obj); //1
+</code></pre><p>在这个例子中，call(..)方法第一个参数要求传入一个对象，并将被调用函数中的this强制绑定到所传入对象中去。</p>
+<p>apply(..)和call(..)非常相似，其不同之处在于提供参数的方式不同，它们起到的作用是差不多的。</p>
+<p>如果在apply(..)或者call(..)中传入一个基本类型的值来当做this的绑定对象，那么这个基本类型的值会被转换成它相应的对象形式。</p>
+<h3 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h3><p>在传统的oo语言中，构造函数是类中的一个特殊方法，它被用来初始化一个类。通常的形式为：</p>
+<pre><code>student = new Student(); 
+</code></pre><p>在JS中，也存在new操作符。但由于没有“类”这个概念，所以被new操作符调用的函数，不会实例化某个类，它们只是被调用的普通函数而已。</p>
+<p>使用构造函数，会生成一个新的对象，this将指向这个新对象。</p>
+<pre><code>var x = 2; 
+
+function Foo(){
+    this.x = 1; 
+}
+
+var foo = new Foo(); 
+
+console.log(foo.x) // 1
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -198,61 +258,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/09/14/this/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/05/scope/" class="archive-article-date">
-  	<time datetime="2017-09-05T10:29:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/10/oop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">面向对象的程序设计</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/05/scope/">JavaScript作用域学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">作用域</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是this"><span class="toc-number">1.</span> <span class="toc-text">什么是this</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this用法的四种情况"><span class="toc-number">2.</span> <span class="toc-text">this用法的四种情况</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#默认绑定"><span class="toc-number">2.1.</span> <span class="toc-text">默认绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式绑定"><span class="toc-number">2.2.</span> <span class="toc-text">隐式绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强制绑定"><span class="toc-number">2.3.</span> <span class="toc-text">强制绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#new绑定"><span class="toc-number">2.4.</span> <span class="toc-text">new绑定</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -275,9 +393,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
