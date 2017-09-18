@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017/9 | ~.~的博客</title>
+  <title>JS变量提升 | ~.~的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="~.~的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2017/09/index.html">
+  <meta name="description" content="通常，我们认为JS代码是一行一行从上到下执行的，但在有些时候这种认为是错误的。在这个例子中，我们可以清楚地看到问题的所在： console.log(a); var a = 2;      想想它会输出什么？会由于没有申明变量“a”而输出ReferenceError吗？实际上，它会输出undefined，那么是什么原因导致了其运行结果和我们预想的不一样呢？这就得提到了一个我们经常忽略的一个细节：即变">
+<meta name="keywords" content="JavaScript,提升">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS变量提升">
+<meta property="og:url" content="http://yoursite.com/2017/09/18/upgrade/index.html">
 <meta property="og:site_name" content="~.~的博客">
+<meta property="og:description" content="通常，我们认为JS代码是一行一行从上到下执行的，但在有些时候这种认为是错误的。在这个例子中，我们可以清楚地看到问题的所在： console.log(a); var a = 2;      想想它会输出什么？会由于没有申明变量“a”而输出ReferenceError吗？实际上，它会输出undefined，那么是什么原因导致了其运行结果和我们预想的不一样呢？这就得提到了一个我们经常忽略的一个细节：即变">
+<meta property="og:updated_time" content="2017-09-18T16:48:27.526Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="~.~的博客">
+<meta name="twitter:title" content="JS变量提升">
+<meta name="twitter:description" content="通常，我们认为JS代码是一行一行从上到下执行的，但在有些时候这种认为是错误的。在这个例子中，我们可以清楚地看到问题的所在： console.log(a); var a = 2;      想想它会输出什么？会由于没有申明变量“a”而输出ReferenceError吗？实际上，它会输出undefined，那么是什么原因导致了其运行结果和我们预想的不一样呢？这就得提到了一个我们经常忽略的一个细节：即变">
   
     <link rel="alternative" href="/atom.xml" title="~.~的博客" type="application/atom+xml">
   
@@ -153,36 +158,115 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-upgrade" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/18/upgrade/" class="archive-article-date">
-  	<time datetime="2017-09-18T15:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/upgrade/">JS变量提升</a>
+    <h1 class="article-title" itemprop="name">
+      JS变量提升
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/18/upgrade/" class="archive-article-date">
+  	<time datetime="2017-09-18T15:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常，我们认为JS代码是一行一行从上到下执行的，但在有些时候这种认为是错误的。在这个例子中，我们可以清楚地看到问题的所在：</p>
+<pre><code>console.log(a);
+var a = 2;     
+</code></pre><p>想想它会输出什么？会由于没有申明变量“a”而输出ReferenceError吗？实际上，它会输出undefined，那么是什么原因导致了其运行结果和我们预想的不一样呢？这就得提到了一个我们经常忽略的一个细节：即变量提升。</p>
+<h2 id="JavaScript的运行规则"><a href="#JavaScript的运行规则" class="headerlink" title="JavaScript的运行规则"></a>JavaScript的运行规则</h2><p>实际上在JS代码运行之前，还存在一个编译阶段。当我们看到var a = 2时，我们可能会认为这就是一步完成的事：声明变量并赋值，但JS会将其当作两个声明：var a 和a = 2。第一个声明发生在编译阶段，即 var a；第二个声明发生在执行阶段，即a = 2。因此，之前那个问题：</p>
+<pre><code>console.log(a);
+var a = 2;
+</code></pre><p>实际上，在JS中是这样执行的：</p>
+<pre><code>var a; //编译阶段
+console.log(a); //执行阶段
+a = 2; //执行阶段
+</code></pre><p>在提升这个过程中，我们需要注意的是，提升的部分仅仅是声明部分，而赋值和逻辑代码仍然留在原地等待执行。并且提升到的顶部，指的是其所在作用域的顶部。    </p>
+<h2 id="函数优先"><a href="#函数优先" class="headerlink" title="函数优先"></a>函数优先</h2><p>函数声明和变量声明都会被提升，但需要注意的是函数声明会先被提升，然后才是变量声明。</p>
+<pre><code>foo(); //1
+
+function foo(){
+    console.log(1); 
+}    
+
+var foo = function(){
+    console.log(2); 
+}
+</code></pre><p>这个代码片段会被JS引擎这样理解：</p>
+<pre><code>function foo(){
+    console.log(1); 
+}
+
+var foo; //对foo的重复声明，实际上会被JS的优化原则所忽略
+
+foo(); 
+
+foo = function(){
+    console.log(2); 
+}
+</code></pre><p>这样就能理解为什么会输出1而不是2了。</p>
+<p>其次需要注意的是，出现在后面的函数声明会覆盖前面的函数声明：</p>
+<pre><code>foo(); //3
+
+function foo(){
+    console.log(1); 
+}
+
+var foo = function(){
+    console.log(2);
+}
+
+function foo(){
+    console.log(3);
+}
+</code></pre><p>这个代码片段会被JS引擎这样理解：</p>
+<pre><code>function foo(){
+    console.log(1); 
+}
+
+function foo(){
+    console.log(3);
+}
+
+foo();
+
+foo = function(){
+    console.log(2);
+}
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实，无论声明出现在作用域的哪个地方，都会在代码本身被执行之前被提升到所在作用域顶部。</p>
+<p>我们应该尽量在作用域顶部声明变量并赋值，并避免重复声明变量，这样能减少好些问题。</p>
+<p>最后贴上今天在网站看到的一个关于变量提升的代码题：</p>
+<pre><code>alert(a)；
+
+a();
+
+var a=3;
+
+function a(){
+    alert(10);
+} 
+
+alert(a);
+
+a=6;
+
+a();
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -198,162 +282,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/09/18/upgrade/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/14/closure/" class="archive-article-date">
-  	<time datetime="2017-09-14T14:18:41.106Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/14/closure/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript的运行规则"><span class="toc-number">1.</span> <span class="toc-text">JavaScript的运行规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数优先"><span class="toc-number">2.</span> <span class="toc-text">函数优先</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/14/this/" class="archive-article-date">
-  	<time datetime="2017-09-14T02:31:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/14/this/">JavaScript中的this用法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">this</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/10/oop/" class="archive-article-date">
-  	<time datetime="2017-09-10T02:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/10/oop/">面向对象的程序设计</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">oop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/05/scope/" class="archive-article-date">
-  	<time datetime="2017-09-05T10:29:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/05/scope/">JavaScript作用域学习笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">作用域</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -376,8 +417,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

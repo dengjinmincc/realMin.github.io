@@ -155,6 +155,211 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-upgrade" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/18/upgrade/">JS变量提升</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/18/upgrade/" class="archive-article-date">
+  	<time datetime="2017-09-18T15:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常，我们认为JS代码是一行一行从上到下执行的，但在有些时候这种认为是错误的。在这个例子中，我们可以清楚地看到问题的所在：</p>
+<pre><code>console.log(a);
+var a = 2;     
+</code></pre><p>想想它会输出什么？会由于没有申明变量“a”而输出ReferenceError吗？实际上，它会输出undefined，那么是什么原因导致了其运行结果和我们预想的不一样呢？这就得提到了一个我们经常忽略的一个细节：即变量提升。</p>
+<h2 id="JavaScript的运行规则"><a href="#JavaScript的运行规则" class="headerlink" title="JavaScript的运行规则"></a>JavaScript的运行规则</h2><p>实际上在JS代码运行之前，还存在一个编译阶段。当我们看到var a = 2时，我们可能会认为这就是一步完成的事：声明变量并赋值，但JS会将其当作两个声明：var a 和a = 2。第一个声明发生在编译阶段，即 var a；第二个声明发生在执行阶段，即a = 2。因此，之前那个问题：</p>
+<pre><code>console.log(a);
+var a = 2;
+</code></pre><p>实际上，在JS中是这样执行的：</p>
+<pre><code>var a; //编译阶段
+console.log(a); //执行阶段
+a = 2; //执行阶段
+</code></pre><p>在提升这个过程中，我们需要注意的是，提升的部分仅仅是声明部分，而赋值和逻辑代码仍然留在原地等待执行。并且提升到的顶部，指的是其所在作用域的顶部。    </p>
+<h2 id="函数优先"><a href="#函数优先" class="headerlink" title="函数优先"></a>函数优先</h2><p>函数声明和变量声明都会被提升，但需要注意的是函数声明会先被提升，然后才是变量声明。</p>
+<pre><code>foo(); //1
+
+function foo(){
+    console.log(1); 
+}    
+
+var foo = function(){
+    console.log(2); 
+}
+</code></pre><p>这个代码片段会被JS引擎这样理解：</p>
+<pre><code>function foo(){
+    console.log(1); 
+}
+
+var foo; //对foo的重复声明，实际上会被JS的优化原则所忽略
+
+foo(); 
+
+foo = function(){
+    console.log(2); 
+}
+</code></pre><p>这样就能理解为什么会输出1而不是2了。</p>
+<p>其次需要注意的是，出现在后面的函数声明会覆盖前面的函数声明：</p>
+<pre><code>foo(); //3
+
+function foo(){
+    console.log(1); 
+}
+
+var foo = function(){
+    console.log(2);
+}
+
+function foo(){
+    console.log(3);
+}
+</code></pre><p>这个代码片段会被JS引擎这样理解：</p>
+<pre><code>function foo(){
+    console.log(1); 
+}
+
+function foo(){
+    console.log(3);
+}
+
+foo();
+
+foo = function(){
+    console.log(2);
+}
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实，无论声明出现在作用域的哪个地方，都会在代码本身被执行之前被提升到所在作用域顶部。</p>
+<p>我们应该尽量在作用域顶部声明变量并赋值，并避免重复声明变量，这样能减少好些问题。</p>
+<p>最后贴上今天在网站看到的一个关于变量提升的代码题：</p>
+<pre><code>alert(a)；
+
+a();
+
+var a=3;
+
+function a(){
+    alert(10);
+} 
+
+alert(a);
+
+a=6;
+
+a();
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">提升</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/18/upgrade/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-closure" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/14/closure/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-this" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -643,11 +848,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">作用域</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">this</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">作用域</a>
+                <a href="javascript:void(0)" class="js-tag color3">提升</a>
               </li>
             
             <div class="clearfix"></div>
